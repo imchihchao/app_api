@@ -1,10 +1,17 @@
+# api/index.py
 import gradio as gr
 
 def greet(name):
-    return "Hello " + name + "!"
+    return f"Hello, {name}!"
 
-def main():
-    gr.Interface(fn=greet, inputs="text", outputs="text").launch()
+# 建立 Gradio 介面
+demo = gr.Interface(
+    fn=greet,
+    inputs=gr.Textbox(placeholder="Your name here"),
+    outputs=gr.Textbox(label="Greeting"),
+    title="Greeting App"
+)
 
-if __name__ == '__main__':
-	main()
+# 匯出 ASGI app，Vercel 會自動使用它作為入口
+app = demo.app
+
