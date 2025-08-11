@@ -1,25 +1,11 @@
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-from mangum import Mangum
 
+# 創建一個 FastAPI 應用實例
 app = FastAPI()
 
-# 添加 CORS 中間件
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
+# 定義一個路由，當用戶訪問根路徑時，返回一個 JSON 響應
 @app.get("/")
 def read_root():
-    return {"message": "Hello World"}
+    return {"Hello": "World"}
 
-@app.get("/api/hello")
-def hello():
-    return {"message": "Hello from FastAPI on Vercel!"}
 
-# Vercel serverless function handler
-handler = Mangum(app)
