@@ -1,9 +1,10 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from mangum import Mangum
 
 app = FastAPI()
 
-# 添加 CORS 中間件（可選）
+# 添加 CORS 中間件
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -20,5 +21,5 @@ def read_root():
 def hello():
     return {"message": "Hello from FastAPI on Vercel!"}
 
-# Vercel 需要這個
-app = app
+# Vercel serverless function handler
+handler = Mangum(app)
