@@ -1,7 +1,24 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
+# 添加 CORS 中間件（可選）
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 @app.get("/")
 def read_root():
-    return {"message": "Hello, World!"}
+    return {"message": "Hello World"}
+
+@app.get("/api/hello")
+def hello():
+    return {"message": "Hello from FastAPI on Vercel!"}
+
+# Vercel 需要這個
+app = app
